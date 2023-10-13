@@ -1,3 +1,5 @@
+import string
+
 import pytest
 
 from text_stat import text_stat
@@ -7,10 +9,9 @@ from text_stat import text_stat
     'text_stat/normal_file.txt'
 ])
 def test_normal_file(filename):
-    alpha_l = 'abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя'
-    alpha_u = alpha_l.upper()
+    cyr = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
     exp = {'bilingual_word_amount': 1, 'paragraph_amount': 2, 'word_amount': 16}
-    for c in alpha_u + alpha_l:
+    for c in cyr + cyr.upper() + string.ascii_letters:
         exp[c] = (1, 0.06)
     exp['A'] = (2, 0.12)
     assert text_stat(filename) == exp
@@ -19,14 +20,13 @@ def test_normal_file(filename):
 @pytest.mark.parametrize('filename', [
     'text_stat/normal_file.txt',
     'text_stat/testfile2.txt',
-    'text_stat/randomly_generated_file.txt'
+    'text_stat/random_file_from_fixture.txt',
+    'text_stat/empty_file.txt'
 ])
 def test_result_keys(filename, create_testfile):
-    alpha_l = 'abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя'
-    alpha_u = alpha_l.upper()
-    keys = {'bilingual_word_amount', 'paragraph_amount', 'word_amount'}
-    for c in alpha_u+alpha_l:
-        keys.add(c)
+    cyr = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+    keys = {'bilingual_word_amount', 'paragraph_amount', 'word_amount'}\
+        .union(set(cyr + cyr.upper() + string.ascii_letters))
     assert set(text_stat(filename).keys()).issubset(keys)
 
 
