@@ -7,7 +7,6 @@ def text_stat(filename: str):
             raise TypeError(f'Wrong argument: {filename}. It must be string')
         with open(filename, mode='r', encoding='utf-8') as f:
             data = f.readlines()
-        ru_letters = set('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя')
         letters = set('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя' + string.ascii_letters)
         temp_res = {'word_amount': 0,
                     'paragraph_amount': 0,
@@ -15,7 +14,7 @@ def text_stat(filename: str):
         current_word_number = 0
         for line in data:
             words = line.split()
-            if words:  # check if line is not empty
+            if words:
                 if line[:1] == '\t':
                     temp_res['paragraph_amount'] += 1
                 for item in words:
@@ -26,10 +25,10 @@ def text_stat(filename: str):
                     for c in item:
                         if c in letters:
                             is_word = True
-                            if c in ru_letters:
-                                is_ru = True
-                            else:
+                            if c in string.ascii_letters:
                                 is_en = True
+                            else:
+                                is_ru = True
                             try:
                                 temp_res[c]['c_amount'] += 1
                                 if current_word_number != temp_res[c]['last_word_number'] and is_word:
