@@ -1,0 +1,6 @@
+A ABCDEFGHIJKLMNOPQ RST     UVWXYZ
+  ab c defghijkl mnopq rst uvwxyzА
+
+
+	БВГДЕЁЖЗИЙКЛ МНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+	а бвгд еёжзийклм    12378   !"№%%:?*()[]{}/<>?";-=+_~   нопрстуф9000хцчшщъыьэюя
